@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--是否开始懒加载：开启懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--是否在获取对象的任意属性的时候都进行关联查询：禁止积极查询-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--配置会触发关联查询的方法：clone克隆时关联查询 -->
+        <setting name="lazyLoadTriggerMethods" value="clone"/>
+    </settings>
+
+    <plugins>
+        <!-- PageInterceptor ,mybatis分页插件所在包-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 当pageNum <=0，将pageNum设置为1 -->
+            <!-- 当pageNum>pages时，将pageNum设置为pages -->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+</configuration>

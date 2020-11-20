@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wanzizoo.crm.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="cn.wanzizoo.crm.domain.Permission">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="expression" property="expression"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey">
+    delete from permission
+    where id = #{id}
+  </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into permission (name, expression)
+    values (#{name}, #{expression})
+  </insert>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, expression
+    from permission
+  </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from permission
+  </select>
+    <select id="selectList" resultType="cn.wanzizoo.crm.domain.Permission">
+    select id, name, expression
+    from permission
+    limit #{start},#{pageSize}
+  </select>
+    <select id="selectAllExpression" resultType="java.lang.String">
+    select  expression
+    from permission
+  </select>
+  <select id="selectByRoleId" resultType="Permission">
+    select p.id, p.name, p.expression
+    from permission p
+    left join role_permission rp on p.id = rp.permission_id
+    where rp.role_id = #{roleId}
+  </select>
+    <select id="selectExpressionByEmpId" resultType="java.lang.String">
+        select distinct p.expression
+        from permission p
+        left join role_permission rp on p.id = rp.permission_id
+        left join employee_role er on er.role_id = rp.role_id
+        where er.employee_id = #{empId}
+    </select>
+</mapper>
