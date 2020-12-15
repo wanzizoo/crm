@@ -1,5 +1,6 @@
 package cn.wanzizoo.crm.service.impl;
 
+import cn.wanzizoo.crm.domain.Department;
 import cn.wanzizoo.crm.domain.Employee;
 import cn.wanzizoo.crm.mapper.EmployeeMapper;
 import cn.wanzizoo.crm.mapper.PermissionMapper;
@@ -8,6 +9,8 @@ import cn.wanzizoo.crm.query.QueryObject;
 import cn.wanzizoo.crm.service.IEmployeeService;
 import cn.wanzizoo.crm.util.LogicException;
 import cn.wanzizoo.crm.util.UserContext;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,29 +70,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public PageResult<Employee> query(QueryObject qo) {
-        //查询总条数
-        int count = employeeMapper.selectCount(qo);
-        //总条数为0直接返回空PageResult
-        if (0 == count) {
-            return new PageResult<Employee>(qo.getCurrentPage(), qo.getPageSize());
-        }
-        //总条数不为0查结果集
+    public PageInfo<Employee> query(QueryObject qo) {
+
+        //告诉分页插件此条代码下的第一条查询，执行拦截拼接分页操作
+        PageHelper.startPage(qo.getCurrentPage(), qo.getPageSize());
         List<Employee> employees = employeeMapper.selectList(qo);
 
-        //当前业结果集为空查询当前数据最后一页
-        if (null == employees || employees.size() == 0) {
-            int pageSize = qo.getPageSize();
-            if (count % pageSize == 0) {
-                qo.setCurrentPage(count / pageSize);
-            } else {
-                qo.setCurrentPage(count / pageSize + 1);
-            }
-            employees = employeeMapper.selectList(qo);
-        }
-        //封装返回
-        return new PageResult<Employee>(employees, qo.getCurrentPage(), qo.getPageSize(), count);
-
+        return new PageInfo<>(employees);
     }
 
     @Override

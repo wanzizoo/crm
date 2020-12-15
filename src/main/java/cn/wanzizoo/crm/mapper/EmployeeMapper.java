@@ -17,8 +17,6 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKey(Employee employee);
 
-    int selectCount(QueryObject qo);
-
     List<Employee> selectList(QueryObject qo);
     //mapper中方法多参数需要加Param注解来封装
     void insertEmpAndRoleRelation(@Param("empId") Long empId,@Param("roleId") Long roleId);

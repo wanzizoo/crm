@@ -5,8 +5,8 @@
     //分页
     $(function(){
         $("#pagination").twbsPagination({
-            totalPages: ${pageInfo.pages}||1,
-                startPage: ${pageInfo.pageNum} || 1,
+            totalPages: ${(pageInfo.pages)!}||1,
+                startPage: ${(pageInfo.pageNum)!} || 1,
                 visiblePages:5,
                 first:"首页",
                 prev:"上页",

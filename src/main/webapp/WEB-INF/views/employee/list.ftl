@@ -21,7 +21,7 @@
             <div class="box">
                 <!--高级查询--->
                 <form class="form-inline" id="searchForm" action="/employee/list.do" method="post">
-                    <input type="hidden" name="currentPage" id="currentPage" value="${(result.currentPage)!}">
+                    <input type="hidden" name="currentPage" id="currentPage" value="${(pageInfo.pageNum)!}">
                     <div class="form-group">
                         <label for="keyword">&nbsp;&nbsp;&nbsp;关键字：</label>
                         <input type="text" name="keyword" id="keyword" value="${(qo.keyword)!}"
@@ -44,7 +44,7 @@
                     <button id="btn_query" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"></span>查询
                     </button>
-                    <a href="/employee/input.do?currentPage=${(result.currentPage)!}" class="btn btn-success btn-input"
+                    <a href="/employee/input.do?currentPage=${(pageInfo.pageNum)!}" class="btn btn-success btn-input"
                        style="margin: 10px">
                         <span class="glyphicon glyphicon-plus"></span> 添加
                     </a>
@@ -61,7 +61,7 @@
                             <th>操作</th>
                         </tr>
 
-                        <#list  result.data as entity>
+                        <#list  pageInfo.list as entity>
                             <tr>
                                 <td>${entity_index+1}</td>
                                 <td>${(entity.name)!}</td>
@@ -70,10 +70,10 @@
                                 <td>${(entity.dept.name)!}</td>
                                 <td>
                                     <a class="btn btn-info btn-xs btn-input"
-                                       href="/employee/input.do?id=${(entity.id)!}&currentPage=${(result.currentPage)!}">
+                                       href="/employee/input.do?id=${(entity.id)!}&currentPage=${(pageInfo.pageNum)!}">
                                         <span class="glyphicon glyphicon-pencil"></span> 编辑
                                     </a>
-                                    <a href="/employee/delete.do?id=${(entity.id)!}&currentPage=${(result.currentPage)!}"
+                                    <a href="javascript:;" data-url="/employee/delete.do?id=${(entity.id)!}&currentPage=${(pageInfo.pageNum)!}"
                                        class="btn btn-danger btn-xs btn-delete">
                                         <span class="glyphicon glyphicon-trash"></span> 删除
                                     </a>

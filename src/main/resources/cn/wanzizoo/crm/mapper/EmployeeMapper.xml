@@ -61,18 +61,7 @@
     select id, name, password, email, age, admin, dept_id
     from employee
   </select>
-    <select id="selectCount" resultType="java.lang.Integer">
-        select count(*)
-        from employee
-        <where>
-            <if test="null != keyword">
-                AND (name like concat('%',#{keyword},'%') OR email like concat('%',#{keyword},'%'))
-            </if>
-            <if test="-1 != deptId">
-                AND dept_id = #{deptId}
-            </if>
-        </where>
-    </select>
+
     <select id="selectList" resultMap="BaseResultMap">
         select e.id, e.name, e.password, e.email, e.age, e.admin, d.id d_id, d.name d_name, d.sn d_sn
         from employee e
@@ -85,7 +74,6 @@
                 AND e.dept_id = #{deptId}
             </if>
         </where>
-        limit #{start},#{pageSize}
     </select>
     <select id="selectByNameAndPassword" resultType="cn.wanzizoo.crm.domain.Employee">
         select * from employee where name = #{name} AND password = #{password}

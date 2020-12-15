@@ -124,10 +124,11 @@
                         <div class="col-sm-4">
                             <select class="form-control" name="dept.id" id="dept">
                                 <option value="0">请选择所属部门</option>
-                                <#list depts as d>
-                                    <option value="${(d.id)!}">${(d.name)!}</option>
-                                </#list>
-
+                                <#if depts??>
+                                    <#list depts as d>
+                                        <option value="${(d.id)!}">${(d.name)!}</option>
+                                    </#list>
+                                </#if>
                             </select>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
                     </div>
                     <script>
                         <#if e??>
-                        $("input[name=admin]").prop("checked", (${e.admin?c}));
+                        $("input[name=admin]").prop("checked", (${(e.admin?c)!}));
                         </#if>
                     </script>
 
@@ -152,9 +153,11 @@
                         <div class="row" style="margin-top: 10px">
                             <div class="col-sm-2 col-sm-offset-2">
                                 <select multiple class="form-control allRoles" size="15">
-                                    <#list roles as r>
-                                        <option value="${(r.id)!}">${(r.name)!}</option>
-                                    </#list>
+                                    <#if roles??>
+                                        <#list roles as r>
+                                            <option value="${(r.id)!}">${(r.name)!}</option>
+                                        </#list>
+                                    </#if>
                                 </select>
                             </div>
 
@@ -188,9 +191,11 @@
 
                             <div class="col-sm-2">
                                 <select multiple class="form-control selfRoles" size="15" name="roleIds">
-                                    <#list e.roles as r>
-                                        <option value="${(r.id)!}">${(r.name)!}</option>
-                                    </#list>
+                                    <#if e?? && e.roles??>
+                                        <#list e.roles as r>
+                                            <option value="${(r.id)!}">${(r.name)!}</option>
+                                        </#list>
+                                    </#if>
                                 </select>
                             </div>
                         </div>

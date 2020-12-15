@@ -3,6 +3,7 @@ package cn.wanzizoo.crm.service;
 import cn.wanzizoo.crm.domain.Employee;
 import cn.wanzizoo.crm.query.PageResult;
 import cn.wanzizoo.crm.query.QueryObject;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface IEmployeeService {
 
     List<Employee> listAll();
 
-    PageResult<Employee> query(QueryObject qo);
+    PageInfo<Employee> query(QueryObject qo);
 
     void login(String name, String password);
 }
